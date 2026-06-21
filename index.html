@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBERDROP | Bonuslar va Sovg'alar</title>
+    <title>CYBERDROP | Rasmiy Platforma</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -20,22 +20,19 @@
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
             color: #fff;
+            overflow-x: hidden;
         }
 
         .heading-font { font-family: 'Rajdhani', sans-serif; }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0f1215; }
-        ::-webkit-scrollbar-thumb { background: #2c323a; border-radius: 10px; }
-
-        .sidebar-link:hover {
-            background: rgba(196, 255, 0, 0.05);
-            border-right: 3px solid var(--accent-green);
-            color: var(--accent-green);
+        /* Sidebar linklari uchun maxsus */
+        .sidebar-link {
+            cursor: pointer;
+            transition: 0.3s;
+            border-right: 3px solid transparent;
         }
-
-        .sidebar-link.active {
-            background: rgba(196, 255, 0, 0.1);
+        .sidebar-link:hover, .sidebar-link.active {
+            background: rgba(196, 255, 0, 0.05);
             border-right: 3px solid var(--accent-green);
             color: var(--accent-green);
         }
@@ -43,129 +40,228 @@
         .bonus-card {
             background: var(--bg-card);
             border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s ease;
+            transition: 0.3s;
         }
-        .bonus-card:hover {
-            border-color: var(--accent-green);
-            transform: translateY(-3px);
-        }
+        .bonus-card:hover { border-color: var(--accent-green); }
 
         .btn-green {
             background-color: var(--accent-green);
             color: #000;
             font-weight: 800;
             text-transform: uppercase;
-            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(196, 255, 0, 0.2);
         }
         .btn-green:hover {
-            background-color: var(--accent-hover);
-            box-shadow: 0 0 15px rgba(196, 255, 0, 0.4);
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(196, 255, 0, 0.4);
         }
 
-        .promo-input {
-            background: #1c2127;
-            border: 1px solid #2d343c;
-            color: white;
-        }
-        .promo-input:focus {
-            border-color: var(--accent-green);
-            outline: none;
+        /* Bo'limlarni yashirib ko'rsatish animatsiyasi */
+        .section-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .section-content.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body class="flex min-h-screen">
 
-    <!-- SIDEBAR (Yon menyu) -->
+    <!-- SIDEBAR -->
     <aside class="w-64 bg-[#12161a] border-r border-white/5 flex flex-col sticky top-0 h-screen hidden lg:flex">
         <div class="p-6">
-            <!-- NOM O'ZGARTIRILDI -->
             <h1 class="text-2xl font-black heading-font tracking-tighter italic">CYBER<span class="text-[#c4ff00]">DROP</span></h1>
         </div>
         
         <nav class="flex-1 px-4 space-y-2 mt-4">
-            <a href="#" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400 transition group active">
-                <i class="fa-solid fa-gift mr-3"></i> <span>Bonuslar</span>
-            </a>
-            <a href="#" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400 transition group">
-                <i class="fa-solid fa-box-open mr-3"></i> <span>Keyslar</span>
-            </a>
-            <a href="#" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400 transition group">
-                <i class="fa-solid fa-bolt mr-3"></i> <span>Upgrades</span>
-            </a>
-            <a href="#" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400 transition group">
-                <i class="fa-solid fa-shield-halved mr-3"></i> <span>Kontraktlar</span>
-            </a>
-            <a href="#" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400 transition group">
-                <i class="fa-solid fa-trophy mr-3"></i> <span>Top Foydalanuvchilar</span>
+            <div onclick="showSection('bonuses')" id="link-bonuses" class="sidebar-link active flex items-center p-3 rounded-lg text-gray-400">
+                <i class="fa-solid fa-gift mr-3 w-5"></i> <span>Bonuslar</span>
+            </div>
+            <div onclick="showSection('cases')" id="link-cases" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400">
+                <i class="fa-solid fa-box-open mr-3 w-5"></i> <span>Keyslar</span>
+            </div>
+            <div onclick="showSection('upgrades')" id="link-upgrades" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400">
+                <i class="fa-solid fa-bolt mr-3 w-5"></i> <span>Upgrades</span>
+            </div>
+            <div onclick="showSection('contracts')" id="link-contracts" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400">
+                <i class="fa-solid fa-shield-halved mr-3 w-5"></i> <span>Kontraktlar</span>
+            </div>
+            <a href="https://t.me/cyberdrop_chat" target="_blank" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400">
+                <i class="fa-brands fa-telegram mr-3 w-5 text-blue-400"></i> <span>Chat</span>
             </a>
         </nav>
 
-        <!-- ONLINE SECTION (ID QO'SHILDI) -->
+        <!-- ONLINE PANEL -->
         <div class="p-4 border-t border-white/5">
-            <div class="bg-[#1c2127] p-4 rounded-xl">
+            <div class="bg-[#1c2127] p-4 rounded-xl mb-4">
                 <p class="text-xs text-gray-500 uppercase font-bold mb-1">Onlayn</p>
                 <div class="flex items-center">
                     <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
-                    <span id="online-count" class="text-sm font-bold text-gray-200">1,452 kishi</span>
+                    <span id="online-count" class="text-sm font-bold text-gray-200 tracking-wider">1,452 kishi</span>
                 </div>
             </div>
         </div>
     </aside>
 
-    <!-- ASOSIY QISM -->
+    <!-- MAIN -->
     <main class="flex-1 flex flex-col">
         
         <!-- TOP NAV -->
         <header class="h-20 bg-[#12161a]/80 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-8 sticky top-0 z-50">
             <div class="flex space-x-6 items-center">
                 <div class="flex flex-col">
-                    <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Balans</span>
-                    <span class="text-white font-black text-lg">150,000 UZS</span>
+                    <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest leading-none mb-1">Balans</span>
+                    <span class="text-white font-black text-xl">150,000 UZS</span>
                 </div>
-                <button class="w-10 h-10 rounded-lg bg-[#c4ff00] text-black flex items-center justify-center font-bold">
+                <button onclick="alert('To\'lov tizimi tez kunda ishga tushadi!')" class="w-10 h-10 rounded-lg bg-[#c4ff00] text-black flex items-center justify-center font-bold btn-green">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
 
             <div class="flex items-center space-x-4">
                 <div class="text-right hidden sm:block">
-                    <p class="text-sm font-bold text-white">it's_veko</p>
-                    <p class="text-xs text-[#c4ff00]">Level 15</p>
+                    <p class="text-sm font-bold text-white leading-none">it's_veko</p>
+                    <p class="text-[10px] text-[#c4ff00] font-bold uppercase tracking-widest mt-1">Level 15</p>
                 </div>
-                <div class="w-12 h-12 rounded-xl bg-gray-800 border border-white/10 overflow-hidden">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=veko" alt="Avatar">
-                </div>
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=veko" class="w-12 h-12 rounded-xl bg-gray-800 border border-white/10" alt="Avatar">
             </div>
         </header>
 
-        <!-- CONTENT -->
-        <div class="p-6 lg:p-12 max-w-6xl mx-auto w-full">
+        <div class="p-6 lg:p-12 max-w-7xl mx-auto w-full">
             
-            <div class="mb-10 text-center lg:text-left">
-                <h2 class="heading-font text-4xl md:text-5xl font-black uppercase italic mb-2">Bonuslar <span class="text-[#c4ff00]">Markazi</span></h2>
-                <p class="text-gray-400">Har kuni kiring va bepul sovg'alarga ega bo'ling!</p>
-            </div>
+            <!-- SECTION: BONUSES (ACTIVE BY DEFAULT) -->
+            <section id="sec-bonuses" class="section-content active">
+                <div class="mb-10">
+                    <h2 class="heading-font text-5xl font-black uppercase italic mb-2 tracking-tighter">Bonuslar <span class="text-[#c4ff00]">Markazi</span></h2>
+                    <p class="text-gray-400">Har kuni kiring va bepul sovg'alarga ega bo'ling!</p>
+                </div>
 
-            <div class="bonus-card p-6 rounded-3xl mb-10 flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex items-center">
-                    <div class="w-16 h-16 bg-[#c4ff00]/10 rounded-2xl flex items-center justify-center mr-4">
-                        <i class="fa-solid fa-ticket text-[#c4ff00] text-2xl rotate-45"></i>
+                <!-- Promo Code -->
+                <div class="bonus-card p-6 rounded-[2rem] mb-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center">
+                        <div class="w-16 h-16 bg-[#c4ff00]/10 rounded-2xl flex items-center justify-center mr-4">
+                            <i class="fa-solid fa-ticket text-[#c4ff00] text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black uppercase italic">Promokod bormi?</h3>
+                            <p class="text-gray-500 text-sm">Kodni kiriting va balansga ega bo'ling</p>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-black uppercase italic">Promokod bormi?</h3>
-                        <p class="text-gray-500 text-sm">Kodni kiriting va hisobingizni to'ldiring</p>
+                    <div class="flex w-full md:w-auto gap-2">
+                        <input type="text" placeholder="PROMO KOD..." class="bg-[#1c2127] border border-white/5 px-6 py-4 rounded-2xl w-full md:w-72 font-bold outline-none focus:border-[#c4ff00]">
+                        <button class="btn-green px-8 py-4 rounded-2xl">OK</button>
                     </div>
                 </div>
-                <div class="flex w-full md:w-auto gap-2">
-                    <input type="text" placeholder="Kodni kiriting..." class="promo-input px-6 py-4 rounded-2xl w-full md:w-80 font-bold">
-                    <button class="btn-green px-8 py-4 rounded-2xl">Faollashtirish</button>
-                </div>
-            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- 1-Bonus -->
-                <div class="bonus-card p-8 rounded-[2.5rem] flex flex-col items-center text-center">
-                    <div class="relative mb-6">
-                        <div class="absolute inset-0 bg-[#c4ff00] blur-3xl opacity-20"></div>
-                        <img src="https://bulldrop.uz/_next/static/media/bonus-case.4770e53a.png" class="w-32 relative z-10" alt="Bonus Case">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Daily -->
+                    <div class="bonus-card p-8 rounded-[2.5rem] flex flex-col items-center text-center">
+                        <img src="https://bulldrop.uz/_next/static/media/bonus-case.4770e53a.png" class="w-32 mb-4" alt="Case">
+                        <h4 class="text-xl font-black uppercase italic mb-2">Kunlik Keys</h4>
+                        <p class="text-gray-500 text-sm mb-6 leading-relaxed">Har 24 soatda bepul keys oching!</p>
+                        <button class="btn-green w-full py-4 rounded-2xl">OCHISH</button>
+                    </div>
+                    <!-- Telegram -->
+                    <div class="bonus-card p-8 rounded-[2.5rem] flex flex-col items-center text-center">
+                        <div class="w-20 h-20 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center mb-4 text-4xl"><i class="fa-brands fa-telegram"></i></div>
+                        <h4 class="text-xl font-black uppercase italic mb-2">Telegram</h4>
+                        <p class="text-gray-500 text-sm mb-6 leading-relaxed">Kanalga a'zo bo'ling va +5,000 UZS oling.</p>
+                        <a href="https://t.me/its_veko" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-black w-full py-4 rounded-2xl text-center uppercase">OBUNA BO'LISH</a>
+                    </div>
+                    <!-- Level -->
+                    <div class="bonus-card p-8 rounded-[2.5rem] flex flex-col items-center text-center opacity-60">
+                        <div class="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mb-4 text-3xl font-black text-[#c4ff00]">15</div>
+                        <h4 class="text-xl font-black uppercase italic mb-2">Level Bonus</h4>
+                        <p class="text-gray-500 text-sm mb-6 leading-relaxed">Level 16 da ochiladi!</p>
+                        <div class="w-full bg-white/5 h-2 rounded-full mb-2"><div class="bg-[#c4ff00] h-full w-[75%]"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: CASES -->
+            <section id="sec-cases" class="section-content">
+                <h2 class="heading-font text-5xl font-black uppercase italic mb-8 tracking-tighter">Barcha <span class="text-[#c4ff00]">Keyslar</span></h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <div class="bonus-card p-4 rounded-2xl text-center cursor-pointer">
+                        <img src="https://bulldrop.uz/_next/static/media/bonus-case.4770e53a.png" class="w-full mb-2">
+                        <p class="text-xs text-gray-400">MILITARY</p>
+                        <p class="font-black text-[#c4ff00]">5,000 UZS</p>
+                    </div>
+                    <!-- Takrorlash -->
+                    <div class="bonus-card p-4 rounded-2xl text-center cursor-pointer">
+                        <img src="https://bulldrop.uz/_next/static/media/bonus-case.4770e53a.png" class="w-full mb-2">
+                        <p class="text-xs text-gray-400">COMMANDO</p>
+                        <p class="font-black text-[#c4ff00]">15,000 UZS</p>
+                    </div>
+                    <div class="bonus-card p-4 rounded-2xl text-center cursor-pointer">
+                        <img src="https://bulldrop.uz/_next/static/media/bonus-case.4770e53a.png" class="w-full mb-2">
+                        <p class="text-xs text-gray-400">LEGEND</p>
+                        <p class="font-black text-[#c4ff00]">50,000 UZS</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: UPGRADES -->
+            <section id="sec-upgrades" class="section-content">
+                <div class="h-96 flex flex-col items-center justify-center text-center">
+                    <i class="fa-solid fa-bolt text-7xl text-[#c4ff00] mb-6 animate-bounce"></i>
+                    <h2 class="heading-font text-4xl font-black uppercase italic">Upgrade Bo'limi</h2>
+                    <p class="text-gray-400 mt-2">Skinlaringizni yanada qimmatroqlariga almashtiring!</p>
+                </div>
+            </section>
+
+            <!-- SECTION: CONTRACTS -->
+            <section id="sec-contracts" class="section-content">
+                <div class="h-96 flex flex-col items-center justify-center text-center border-2 border-dashed border-white/5 rounded-[3rem]">
+                    <i class="fa-solid fa-file-signature text-7xl text-gray-600 mb-6"></i>
+                    <h2 class="heading-font text-4xl font-black uppercase italic">Kontraktlar</h2>
+                    <p class="text-gray-400 mt-2">10 ta skin bering va 1 ta zo'rini oling.</p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- MOBILE NAV -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-[#12161a] border-t border-white/10 flex justify-around p-4 z-50 backdrop-blur-md">
+        <button onclick="showSection('bonuses')" class="text-[#c4ff00]"><i class="fa-solid fa-gift text-xl"></i></button>
+        <button onclick="showSection('cases')" class="text-gray-500"><i class="fa-solid fa-box-open text-xl"></i></button>
+        <button onclick="showSection('upgrades')" class="text-gray-500"><i class="fa-solid fa-bolt text-xl"></i></button>
+        <button onclick="alert('Tez kunda!')" class="text-gray-500"><i class="fa-solid fa-user text-xl"></i></button>
+    </div>
+
+    <script>
+        // BO'LIMLARNI ALMASHTIRISH
+        function showSection(sectionId) {
+            // Hamma kontentlarni yashirish
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Hamma linklardan active classini olib tashlash
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Kerakli qismni ko'rsatish
+            document.getElementById('sec-' + sectionId).classList.add('active');
+            document.getElementById('link-' + sectionId).classList.add('active');
+        }
+
+        // JONLI ONLINE COUNTER
+        function updateOnlineStatus() {
+            const onlineElement = document.getElementById('online-count');
+            let currentCount = parseInt(onlineElement.innerText.replace(/\D/g, ''));
+            const change = Math.floor(Math.random() * 7) - 3; 
+            let newCount = currentCount + change;
+
+            if (newCount < 1400) newCount = 1420;
+            if (newCount > 1650) newCount = 1630;
+
+            onlineElement.innerText = newCount.toLocaleString() + ' kishi';
+        }
+        setInterval(updateOnlineStatus, 3000);
+    </script>
+
+</body>
+</html>
