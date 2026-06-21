@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BULL-CASE | Bonuslar va Sovg'alar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #0f1215;
+            --bg-card: #161a1e;
+            --accent-green: #c4ff00; /* BullDrop yashil rangi */
+            --accent-hover: #a3d400;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: #fff;
+        }
+
+        .heading-font { font-family: 'Rajdhani', sans-serif; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f1215; }
+        ::-webkit-scrollbar-thumb { background: #2c323a; border-radius: 10px; }
+
+        /* Sidebar styling */
+        .sidebar-link:hover {
+            background: rgba(196, 255, 0, 0.05);
+            border-right: 3px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .sidebar-link.active {
+            background: rgba(196, 255, 0, 0.1);
+            border-right: 3px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        /* Bonus Card */
+        .bonus-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+        .bonus-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-3px);
+        }
+
+        .btn-green {
+            background-color: var(--accent-green);
+            color: #000;
+            font-weight: 800;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+        .btn-green:hover {
+            background-color: var(--accent-hover);
+            box-shadow: 0 0 15px rgba(196, 255, 0, 0.4);
+        }
+
+        .promo-input {
+            background: #1c2127;
+            border: 1px solid #2d343c;
+            color: white;
+        }
+        .promo-input:focus {
+            border-color: var(--accent-green);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- SIDEBAR (Yon menyu) -->
+    <aside class="w-64 bg-[#12161a] border-r border-white/5 flex flex-col sticky top-0 h-screen hidden lg:flex">
+        <div class="p-6">
+            <h1 class="text-2xl font-black heading-font tracking-tighter italic">BULL<span class="text-[#c4ff00]">CASE</span></h1>
+        </div>
+        
+        <nav class="flex-1 px-4 space-y-2 mt-4">
+            <a href="#" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400 transition group active">
+                <i class="fa-solid fa-gift mr-3"></i> <span>Bonuslar</span>
+            </a>
+            <a href="#" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400 transition group">
+                <i class="fa-solid fa-box-open mr-3"></i> <span>Keyslar</span>
+            </a>
+            <a href="#" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400 transition group">
+                <i class="fa-solid fa-bolt mr-3"></i> <span>Upgrades</span>
+            </a>
+            <a href="#" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400 transition group">
+                <i class="fa-solid fa-shield-halved mr-3"></i> <span>Kontraktlar</span>
+            </a>
+            <a href="#" class="sidebar-link flex items-center p-3 rounded-lg text-gray-400 transition group">
+                <i class="fa-solid fa-trophy mr-3"></i> <span>Top Foydalanuvchilar</span>
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-white/5">
+            <div class="bg-[#1c2127] p-4 rounded-xl">
+                <p class="text-xs text-gray-500 uppercase font-bold mb-1">Onlayn</p>
+                <div class="flex items-center">
+                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
+                    <span class="text-sm font-bold text-gray-200">1,452 kishi</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ASOSIY QISM -->
+    <main class="flex-1 flex flex-col">
+        
+        <!-- TOP NAV -->
+        <header class="h-20 bg-[#12161a]/80 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-8 sticky top-0 z-50">
+            <div class="flex space-x-6 items-center">
+                <div class="flex flex-col">
+                    <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Balans</span>
+                    <span class="text-white font-black text-lg">150,000 UZS</span>
+                </div>
+                <button class="w-10 h-10 rounded-lg bg-[#c4ff00] text-black flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-sm font-bold text-white">it's_veko</p>
+                    <p class="text-xs text-[#c4ff00]">Level 15</p>
+                </div>
+                <div class="w-12 h-12 rounded-xl bg-gray-800 border border-white/10 overflow-hidden">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=veko" alt="Avatar">
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <div class="p-6 lg:p-12 max-w-6xl mx-auto w-full">
+            
+            <!-- Bonus Title -->
+            <div class="mb-10 text-center lg:text-left">
+                <h2 class="heading-font text-4xl md:text-5xl font-black uppercase italic mb-2">Bonuslar <span class="text-[#c4ff00]">Markazi</span></h2>
+                <p class="text-gray-400">Har kuni kiring va bepul sovg'alarga ega bo'ling!</p>
+            </div>
+
+            <!-- PROMO KOD QISMI -->
+            <div class="bonus-card p-6 rounded-3xl mb-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center">
+                    <div class="w-16 h-16 bg-[#c4ff00]/10 rounded-2xl flex items-center justify-center mr-4">
+                        <i class="fa-solid fa-ticket text-[#c4ff00] text-2xl rotate-45"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-black uppercase italic">Promokod bormi?</h3>
+                        <p class="text-gray-500 text-sm">Kodni kiriting va hisobingizni to'ldiring</p>
+                    </div>
+                </div>
+                <div class="flex w-full md:w-auto gap-2">
+                    <input type="text" placeholder="Kodni kiriting..." class="promo-input px-6 py-4 rounded-2xl w-full md:w-80 font-bold">
+                    <button class="btn-green px-8 py-4 rounded-2xl">Faollashtirish</button>
+                </div>
+            </div>
+
+            <!-- BONUSLAR GRIDI -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- 1-Bonus (Kunlik) -->
+                <div class="bonus-card p-8 rounded-[2.5rem] flex flex-col items-center text-center">
+                    <div class="relative mb-6">
+                        <div class="absolute inset-0 bg-[#c4ff00] blur-3xl opacity-20"></div>
+                        <img src="https://bulldrop.uz/_next/static/media/bonus-case.4770e53a.png" class="w-32 relative z-10" alt="Bonus Case">
+                    </div>
+                    <h4 class="text-xl font-black uppercase italic mb-2">Kunlik Keys</h4>
+                    <p class="text-gray-500 text-sm mb-6">Har 24 soatda mutlaqo bepul keys ochish imkoniyati!</p>
+                    <button class="btn-green w-full py-4 rounded-2xl">Keysni ochish</button>
+                </div>
+
+                <!-- 2-Bonus (Telegram) -->
+                <div class="bonus-card p-8 rounded-[2.5rem] flex flex-col items-center text-center">
+                    <div class="w-20 h-20 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center mb-6 text-4xl">
+                        <i class="fa-brands fa-telegram"></i>
+                    </div>
+                    <h4 class="text-xl font-black uppercase italic mb-2">Telegram Obuna</h4>
+                    <p class="text-gray-500 text-sm mb-6">Kanalimizga a'zo bo'ling va 5,000 UZS balansga ega bo'ling.</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-black w-full py-4 rounded-2xl uppercase">Obuna bo'lish</button>
+                </div>
+
+                <!-- 3-Bonus (Level) -->
+                <div class="bonus-card p-8 rounded-[2.5rem] flex flex-col items-center text-center border-dashed border-2 border-[#c4ff00]/20">
+                    <div class="w-20 h-20 bg-gray-800 rounded-full flex items-center justify-center mb-6 text-3xl font-black text-[#c4ff00]">
+                        15
+                    </div>
+                    <h4 class="text-xl font-black uppercase italic mb-2">Level Bonus</h4>
+                    <p class="text-gray-500 text-sm mb-6">Keyingi darajaga o'ting (Level 16) va maxsus sovg'ani oching!</p>
+                    <div class="w-full bg-white/5 h-2 rounded-full mb-6 overflow-hidden">
+                        <div class="bg-[#c4ff00] h-full w-[75%]"></div>
+                    </div>
+                    <button class="bg-white/5 text-gray-400 font-black w-full py-4 rounded-2xl uppercase cursor-not-allowed">Hali tayyor emas</button>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MOBIL NAVBAR (Faqat telefonlar uchun) -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-[#12161a] border-t border-white/10 flex justify-around p-4 z-50">
+        <button class="text-[#c4ff00]"><i class="fa-solid fa-gift text-xl"></i></button>
+        <button class="text-gray-500"><i class="fa-solid fa-box-open text-xl"></i></button>
+        <button class="text-gray-500"><i class="fa-solid fa-bolt text-xl"></i></button>
+        <button class="text-gray-500"><i class="fa-solid fa-user text-xl"></i></button>
+    </div>
+
+</body>
+</html>
